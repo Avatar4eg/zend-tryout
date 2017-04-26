@@ -12,5 +12,9 @@
         $form->setAttribute('autocomplete', 'off'); ?>
 
         <?= $this->partial('_form.phtml', ['form' => $form, 'redirect' => $redirect]); ?>
+
+        <?php if ($this->enableRegistration) {
+            echo $this->translate('Not registered?'); ?> <a href="<?= $this->url('scn-social-auth-user/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?= $this->translate('Sign up!'); ?></a>
+        <?php } ?>
     </div>
 </div>

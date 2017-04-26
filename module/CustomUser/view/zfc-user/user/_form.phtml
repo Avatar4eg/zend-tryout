@@ -4,7 +4,9 @@ foreach ($form as $element) {
     /** @var \Zend\Form\Element $element */
     $label = $element->getLabel();
     if (!$element instanceof Zend\Form\Element\Button && $label !== null && $label !== '') {
-        $element->setAttribute('class', 'form-control'); ?>
+        if (!($element instanceof \Zend\Form\Element\Checkbox)) {
+            $element->setAttribute('class', 'form-control');
+        } ?>
         <div class="form-group">
             <?php
             echo $this->formElement($element) . $this->formElementErrors($element);

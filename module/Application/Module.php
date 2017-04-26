@@ -7,7 +7,7 @@ use Zend\Loader\StandardAutoloader;
 
 class Module
 {
-    const VERSION = '1.0.6-dev';
+    const VERSION = '1.0.0';
 
     public function onBootstrap(MvcEvent $e)
     {

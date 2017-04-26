@@ -101,10 +101,17 @@ class CustomUserListener extends AbstractListenerAggregate
      * @throws \Doctrine\ORM\ORMInvalidArgumentException
      * @throws \Zend\Mail\Exception\InvalidArgumentException
      * @throws \Zend\Mime\Exception\InvalidArgumentException
+     * @throws \Zend\Math\Exception\DomainException
+     * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
      */
     public function onRegisterPost(Event $e)
     {
+        /** @var array $config */
         $config = $this->getServiceManager()->get('config');
+        /** @var EntityManager $objectManager */
+        $objectManager = $this->getServiceManager()->get(EntityManager::class);
+        $update_user = false;
+
         if (!$config) {
             return;
         }
@@ -116,16 +123,13 @@ class CustomUserListener extends AbstractListenerAggregate
         }
 
         if (array_key_exists('zfcuser', $config) && array_key_exists('default_role', $config['zfcuser'])) {
-            /** @var EntityManager $objectManager */
-            $objectManager = $this->getServiceManager()->get(EntityManager::class);
             /** @var Role $user_role */
             $user_role = $objectManager->getRepository(Role::class)->findOneBy([
                 'roleId' => $config['zfcuser']['default_role']
             ]);
             if ($user_role) {
                 $user->addRole($user_role);
-                $objectManager->persist($user);
-                $objectManager->flush();
+                $update_user = true;
             }
         }
 
@@ -137,10 +141,17 @@ class CustomUserListener extends AbstractListenerAggregate
             if (!$mail_service) {
                 return;
             }
+            $user->setConformationToken(new ConformationToken());
+            $update_user = true;
 
             $url = StringService::siteURL() . '/user/activate?t=' . $user->getConformationToken()->getToken();
             $string = 'Confirm registration: <a href="' . $url . '">' . $url . '</a>';
             $mail_service->sendMail($user->getEmail(), $string);
+        }
+
+        if ($update_user === true) {
+            $objectManager->persist($user);
+            $objectManager->flush();
         }
     }
 

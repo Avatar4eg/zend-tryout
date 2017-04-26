@@ -83,7 +83,6 @@ class User extends SampleEntity implements UserInterface, ProviderInterface
     public function __construct()
     {
         $this->roles = new ArrayCollection();
-        $this->setConformationToken(new ConformationToken());
     }
 
     /**

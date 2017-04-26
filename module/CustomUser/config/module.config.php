@@ -87,6 +87,9 @@ return [
             'scn-social-auth' => __DIR__ . '/../view',
             'CustomUser' => __DIR__ . '/../view',
         ],
+        'template_map' => [
+            'zfc-user/user/login' => __DIR__ . '/../view/zfc-user/user/login.phtml',
+        ],
     ],
     'doctrine' => [
         'driver' => [

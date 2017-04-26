@@ -10,11 +10,13 @@ return [
     'modules' => [
         'DoctrineModule',
         'DoctrineORMModule',
+        'ScnSocialAuth',
+        'ScnSocialAuthDoctrineORM',
         'ZfcBase',
         'ZfcUser',
         'ZfcUserDoctrineORM',
-        'ScnSocialAuth',
-        'ScnSocialAuthDoctrineORM',
+        'GoalioRememberMe',
+        'GoalioRememberMeDoctrineORM',
         'BjyAuthorize',
 
         'CustomUser',
