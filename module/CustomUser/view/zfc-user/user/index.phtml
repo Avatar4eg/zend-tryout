@@ -1,0 +1,82 @@
+<?php /** @var \Zend\Form\Form $password_form
+ * @var \Zend\Form\Form $email_form
+ * @var \Zend\Form\Form $data_form
+ * @var \CustomUser\Entity\User $user */
+$user = $this->zfcUserIdentity(); ?>
+<div class="container">
+    <div class="jumbotron">
+        <h1><?= $this->translate('Hello') . ', '; ?><span class="zf-green"><?= $user->getFirstName() . ' ' . $user->getLastName(); ?></span></h1>
+        <p>
+            You are in your profile settings page.
+        </p>
+    </div>
+    <div class="row">
+        <?php if ($data_form !== null) { ?>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Change Data</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="alert data-alert-success" style="display: none">Data changed successfully.</div>
+                        <div class="alert data-alert-error" style="display: none">Unable to update your data. Please try again.</div>
+                        <?php $data_form->prepare();
+                        $data_form->setAttribute('action', $this->url('scn-social-auth-user/change-data'));
+                        $data_form->setAttribute('method', 'post');
+                        $data_form->setAttribute('id', 'change-data');
+
+                        $emailElement = $data_form->get('identity');
+                        $emailElement->setValue($user->getEmail()); ?>
+
+                        <?= $this->partial('_form.phtml', ['form' => $data_form]); ?>
+                    </div>
+                </div>
+            </div>
+        <?php }
+        if ($password_form !== null) { ?>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Change Password</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="alert password-alert-success" style="display: none"><?= $this->translate('Password changed successfully.'); ?></div>
+                        <div class="alert password-alert-error" style="display: none"><?= $this->translate('Unable to update your password. Please try again.'); ?></div>
+                        <?php $password_form->prepare();
+                        $password_form->setAttribute('action', $this->url('scn-social-auth-user/change-password'));
+                        $password_form->setAttribute('method', 'post');
+                        $password_form->setAttribute('autocomplete', 'off');
+                        $password_form->setAttribute('id', 'change-password');
+
+                        $emailElement = $password_form->get('identity');
+                        $emailElement->setValue($user->getEmail()); ?>
+
+                        <?= $this->partial('_form.phtml', ['form' => $password_form]); ?>
+                    </div>
+                </div>
+            </div>
+        <?php }
+        if ($email_form !== null) { ?>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Change Email</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="alert email-alert-success" style="display: none"><?= $this->translate('Email address changed successfully.'); ?></div>
+                        <div class="alert email-alert-error" style="display: none"><?= $this->translate('Unable to update your email address. Please try again.'); ?></div>
+                        <?php $email_form->prepare();
+                        $email_form->setAttribute('action', $this->url('scn-social-auth-user/change-email'));
+                        $email_form->setAttribute('method', 'post');
+                        $email_form->setAttribute('id', 'change-email');
+
+                        $emailElement = $email_form->get('identity');
+                        $emailElement->setValue($user->getEmail()); ?>
+
+                        <?php echo $this->partial('_form.phtml', ['form' => $email_form]); ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+</div>

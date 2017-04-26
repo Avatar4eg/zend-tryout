@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?= $this->translate('Register'); ?></h3>
+    </div>
+    <div class="panel-body">
+        <?php /** @var \Zend\Form\Form $form */
+        if (!$this->enableRegistration) {
+            print $this->translate('Register') . ' is disabled';
+            return;
+        }
+        $form = $this->registerForm;
+        $redirect = $this->redirect;
+        $form->prepare();
+        $form->setAttribute('action', $this->url('zfcuser/register'));
+        $form->setAttribute('method', 'post');
+        $form->setAttribute('autocomplete', 'off'); ?>
+
+        <?= $this->partial('_form.phtml', ['form' => $form, 'redirect' => $redirect]); ?>
+        After registration we send you a email conformation message - so, please check your mailbox when you finish.
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="container">
+    <?php /** @var array $providers */
+    $providers = $this->options->getEnabledProviders();
+    if ($providers !== []) { ?>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Social Registration</h3>
+                    </div>
+                    <div class="panel-body">
+                        <?php foreach ($providers as $provider) {
+                            echo '<dd>' . $this->socialSignInButton($provider, $this->redirect) . '</dd>';
+                        } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php }
+    if ($this->options->getSocialLoginOnly() === false) { ?>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <?= $this->zfcUserLogin; ?>
+            </div>
+        </div>
+    <?php } ?>
+</div>

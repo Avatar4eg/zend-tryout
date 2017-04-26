@@ -1,0 +1,34 @@
+{
+  "name": "zend-tryout",
+  "dependencies": {
+    "jquery": "latest",
+    "jquery-form": "latest",
+    "bootstrap": "latest",
+    "normalize-css": "latest"
+  },
+  "overrides": {
+    "jquery": {
+      "main": [
+        "dist/jquery.min.js"
+      ]
+    },
+    "jquery-form": {
+      "main": [
+        "dist/jquery.form.min.js"
+      ]
+    },
+    "bootstrap": {
+      "main": [
+        "dist/js/bootstrap.min.js",
+        "dist/css/bootstrap.min.css",
+        "dist/css/bootstrap-theme.min.css",
+        "dist/fonts/*"
+      ]
+    },
+    "normalize-css": {
+      "main": [
+        "normalize.css"
+      ]
+    }
+  }
+}

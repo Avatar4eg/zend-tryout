@@ -1,0 +1,17 @@
+<?php /** @var bool $success */ ?>
+<div class="container">
+    <div class="jumbotron">
+        <?php if ($success === true) { ?>
+            <h1>Activation <span class="zf-green">successful</span></h1>
+            <p>
+                Congratulations! Your account successfully activated. Now you can login and explore your profile.
+            </p>
+            <p><a class="btn btn-success btn-lg" href="<?= $this->url('scn-social-auth-user/login'); ?>"><?= $this->translate('Sign In'); ?></a></p>
+        <?php } else { ?>
+            <h1>Activation error</h1>
+            <p>
+                Ooops! We have some errors with your activation. Please try again later.
+            </p>
+        <?php } ?>
+    </div>
+</div>

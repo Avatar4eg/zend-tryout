@@ -1,0 +1,24 @@
+<?php /** @var \Zend\Form\Form $form */
+echo $this->form()->openTag($form);
+foreach ($form as $element) { 
+    /** @var \Zend\Form\Element $element */
+    $label = $element->getLabel();
+    if (!$element instanceof Zend\Form\Element\Button && $label !== null && $label !== '') {
+        $element->setAttribute('class', 'form-control'); ?>
+        <div class="form-group">
+            <?php
+            echo $this->formElement($element) . $this->formElementErrors($element);
+            echo $this->formLabel($element);
+            ?>
+        </div>
+    <?php } elseif ($element->getName() === 'submit') {
+        $element->setAttribute('class', 'btn btn-success pull-right');
+        echo $this->formElement($element) . $this->formElementErrors($element);
+    } else {
+        echo $this->formElement($element) . $this->formElementErrors($element);
+    }
+}
+if ($this->redirect) { ?>
+    <input type="hidden" name="redirect" value="<?php echo $this->redirect ?>">
+<?php }
+echo $this->form()->closeTag(); ?>

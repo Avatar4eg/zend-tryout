@@ -1,0 +1,28 @@
+<?php /** @var bool $status
+ * @var \CustomUser\Entity\User $user */
+$user = $this->zfcUserIdentity(); ?>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?= sprintf($this->translate('Change Email for %s'), $user->getFirstName() . ' ' . $user->getLastName()); ?></h3>
+                </div>
+                <div class="panel-body">
+                    <?php if ($status === true) { ?>
+                        <div class="alert alert-success"><?php echo $this->translate('Email address changed successfully.'); ?></div>
+                    <?php } elseif ($status === false) { ?>
+                        <div class="alert alert-error"><?php echo $this->translate('Unable to update your email address. Please try again.'); ?></div>
+                    <?php }
+                    /** @var \Zend\Form\Form $form */
+                    $form = $this->changeEmailForm;
+                    $form->prepare();
+                    $form->setAttribute('action', $this->url('zfcuser/changeemail'));
+                    $form->setAttribute('method', 'post'); ?>
+
+                    <?php echo $this->partial('_form.phtml', ['form' => $form]); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

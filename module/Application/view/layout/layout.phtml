@@ -1,0 +1,98 @@
+<?= $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <?php $main_title = 'ZF2 Skeleton Application';
+
+        $this->headTitle($main_title)
+            ->setSeparator(' — ')
+            ->setAutoEscape(false);
+        $this->headMeta()
+            ->setCharset('UTF-8')
+            ->appendName('robots', 'index,follow')
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
+            ->appendHttpEquiv('Content-Language', 'en-US')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+
+        //SEO
+        $title = 'Tryout';
+        $description = 'Skeleton Application for Zend Framework zend-mvc applications.';
+        $keywords = implode(', ', [
+            'framework','mvc','zf'
+        ]);
+        $url = $this->serverUrl(true);
+        $image = $this->serverUrl('/assets/client/images/zf-logo-mark.png');
+
+        //Main
+        $this->headTitle($title);
+        $this->headMeta()
+            ->appendName('description', $description)
+            ->appendName('keywords', $keywords);
+
+        //Open Graph
+        $this->headMeta()
+            ->appendProperty('og:type', 'website')
+            ->appendProperty('og:site_name', $main_title)
+            ->appendProperty('og:url', $url)
+            ->appendProperty('og:title', $title)
+            ->appendProperty('og:description', $description);
+
+        //Twitter Card
+        $this->headMeta()
+            ->appendName('twitter:card', 'summary')
+            ->appendName('twitter:url', $url)
+            ->appendName('twitter:site', '@zfdevteam')
+            ->appendName('twitter:title', $title)
+            ->appendName('twitter:description', $description);
+
+        //Image
+        if ($image) {
+            $this->headMeta()
+                ->appendProperty('og:image', $image)
+                ->appendName('twitter:image', $image);
+            $this->headLink([
+                'rel'   => 'image_src',
+                'href'  => $image
+            ]);
+        }
+
+        //Favicon
+        $this->headLink(['rel' => 'apple-touch-icon', 'type' => 'image/png', 'sizes' => '180x180', 'href' => $this->basePath('favicon/apple-touch-icon.png')])
+            ->headLink(['rel' => 'icon', 'type' => 'image/png', 'sizes' => '32x32', 'href' => $this->basePath('favicon/favicon-32x32.png')])
+            ->headLink(['rel' => 'icon', 'type' => 'image/png', 'sizes' => '16x16', 'href' => $this->basePath('favicon/favicon-16x16.png')])
+            ->headLink(['rel' => 'manifest', 'type' => 'application/json', 'href' => $this->basePath('favicon/manifest.json')])
+            ->headLink(['rel' => 'mask-icon', 'type' => 'image/svg+xml', 'href' => $this->basePath('favicon/safari-pinned-tab.svg'), 'extras' => ['color' => '#68b604']])
+            ->headLink(['rel' => 'shortcut icon', 'href' => $this->basePath('favicon/favicon.ico')]);
+        $this->headMeta()
+            ->appendName('msapplication-config', $this->basePath('favicon/browserconfig.xml'))
+            ->appendName('theme-color', '#ffffff');
+
+        //Styles
+        $this->headLink()
+            ->prependStylesheet($this->basePath('css/client/styles.min.css?ver=' . \Application\Module::VERSION));
+
+        //Scripts
+        $this->headScript()
+            ->prependFile($this->basePath('js/respond.min.js?=1.4.2'), 'text/javascript', ['conditional' => 'lt IE 9'])
+            ->prependFile($this->basePath('js/html5shiv.min.js?ver=3.7.3'), 'text/javascript', ['conditional' => 'lt IE 9']);
+
+        //Render
+        echo $this->headTitle();
+        echo $this->headMeta();
+        echo $this->headLink();
+        echo $this->headScript(); ?>
+    </head>
+    <body>
+        <?php //Content
+        echo $this->partial('layout/part/header');
+        echo $this->content;
+        echo $this->partial('layout/part/footer');
+
+        //Scripts
+        $this->inlineScript()
+            ->prependFile($this->basePath('js/client/scripts.min.js?ver=' . \Application\Module::VERSION), 'text/javascript', ['async' => true]);
+
+        //Render
+        echo $this->inlineScript(); ?>
+    </body>
+</html>

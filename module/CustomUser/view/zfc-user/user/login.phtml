@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?= $this->translate('Sign In'); ?></h3>
+    </div>
+    <div class="panel-body">
+        <?php /** @var \Zend\Form\Form $form */
+        $form = $this->loginForm;
+        $redirect = $this->redirect;
+        $form->prepare();
+        $form->setAttribute('action', $this->url('scn-social-auth-user/login'));
+        $form->setAttribute('method', 'post');
+        $form->setAttribute('autocomplete', 'off'); ?>
+
+        <?= $this->partial('_form.phtml', ['form' => $form, 'redirect' => $redirect]); ?>
+    </div>
+</div>
